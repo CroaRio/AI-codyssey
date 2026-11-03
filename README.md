@@ -66,3 +66,41 @@ user.email=krw7566@gmail.com
 init.defaultbranch=main
 
 User@4F-34 UCRT64 ~
+/////
+PS C:\WINDOWS\system32> docker exec -it d775d84d257e bash
+root@d775d84d257e:/# cat /etc/os-release
+PRETTY_NAME="Ubuntu 26.04.1 LTS"
+NAME="Ubuntu"
+VERSION_ID="26.04"
+VERSION="26.04.1 LTS (Resolute Raccoon)"
+VERSION_CODENAME=resolute
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=resolute
+LOGO=ubuntu-logo
+root@d775d84d257e:/# mkdir temp
+mkdir: temp: File exists
+root@d775d84d257e:/# cd temp
+root@d775d84d257e:/temp# touch file.txt
+root@d775d84d257e:/temp# mkdir mydir
+mkdir: mydir: File exists
+root@d775d84d257e:/temp# ls -l
+total 4
+-rw-r--r-- 1 root root    0 Nov  3 06:18 file.txt
+drwxr-xr-x 2 root root 4096 Nov  3 06:15 mydir
+root@d775d84d257e:/temp# chmod 600 file.txt
+root@d775d84d257e:/temp# chmod 700 mydir
+root@d775d84d257e:/temp# ls -l
+total 4
+-rw------- 1 root root    0 Nov  3 06:18 file.txt
+drwx------ 2 root root 4096 Nov  3 06:15 mydir
+root@d775d84d257e:/temp# exit
+exit
+
+What's next:
+    Try Docker Debug for seamless, persistent debugging tools in any container or image → docker debug d775d84d257e
+    Learn more at https://docs.docker.com/go/debug-cli/
