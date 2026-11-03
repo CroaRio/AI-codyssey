@@ -35,3 +35,34 @@ Successfully verified installer hash
 Starting package install...
 Successfully installed
 PS C:\WINDOWS\system32>
+
+/////
+User@4F-34 UCRT64 ~
+$ git config --global user.name "CroaRio"
+
+User@4F-34 UCRT64 ~
+$ git config --global user.email "krw7566@gmail.com"
+
+User@4F-34 UCRT64 ~
+$ git config --global init.defaultBranch main
+
+User@4F-34 UCRT64 ~
+$ git config --list
+diff.astextplain.textconv=astextplain
+filter.lfs.clean=git-lfs clean -- %f
+filter.lfs.smudge=git-lfs smudge -- %f
+filter.lfs.process=git-lfs filter-process
+filter.lfs.required=true
+http.sslbackend=schannel
+core.autocrlf=true
+core.fscache=true
+core.symlinks=false
+pull.rebase=false
+credential.helper=manager
+credential.https://dev.azure.com.usehttppath=true
+init.defaultbranch=master
+user.name=CroaRio
+user.email=krw7566@gmail.com
+init.defaultbranch=main
+
+User@4F-34 UCRT64 ~
