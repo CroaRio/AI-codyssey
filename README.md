@@ -77,8 +77,9 @@ drwx------ 2 root root  4096 Nov  9 10:00 mydir
 
 ------------
 
-### 3) 컨테이너 재시작 및 관리 로그PowerShell# 컨테이너 종료 후 상태 확인
+### 3) 컨테이너 재시작 및 관리 로그
 ```powershell
+# 컨테이너 종료 후 상태 확인
 PS C:\WINDOWS\system32> docker ps -a
 CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                     PORTS     NAMES
 46f968e80102   ubuntu    "/bin/bash"   2 minutes ago   Exited (0) 22 seconds ago            mybox
@@ -96,7 +97,14 @@ root@46f968e80102:/#
 
 ### 4) Dockerfile 커스텀 이미지 제작 및 포트 매핑 실습
 ```powershell
-# 1. Dockerfile 빌드 (초기 빈 파일 에러 해결 후 정상 빌드 완료)
+# 1. 프로젝트 디렉토리 구조 및 파일 역할
+본 프로젝트에서 구성한 작업 디렉토리의 구조와 각 파일의 목적은 다음과 같다.
+
+C:\dockerfile with codyssey\
+├── Dockerfile       # Nginx 베이스 이미지 지정 및 정적 웹 소스 복사를 위한 커스텀 빌드 설정 파일
+└── index.html       # 웹 서버 컨테이너가 브라우저에 렌더링할 커스텀 HTML 정적 페이지 소스(내용)
+
+# 2. Dockerfile 빌드 (초기 빈 파일 에러 해결 후 정상 빌드 완료)
 PS C:\dockerfile with codyssey> docker build -t my-web .
 [+] Building 14.2s (7/7) FINISHED                 docker:desktop-linux
  => [internal] load build definition from Dockerfile                0.0s
@@ -107,7 +115,7 @@ PS C:\dockerfile with codyssey> docker build -t my-web .
  => exporting to image                                              2.5s
  => => naming to docker.io/library/my-web:latest                    0.0s
 
-# 2. 포트 매핑을 통한 컨테이너 실행 및 확인
+# 3. 포트 매핑을 통한 컨테이너 실행 및 확인
 PS C:\dockerfile with codyssey> docker run -d -p 7566:80 --name my-web my-web
 eb75cf470aebcb2c105c5d85f16fe59b6f5d9361c6ddadd8827bee366e4c0a2a
 
