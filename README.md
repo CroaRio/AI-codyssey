@@ -72,7 +72,8 @@ total 4
 -rw------- 1 root root     0 Nov  9 09:59 file.txt
 drwx------ 2 root root  4096 Nov  9 10:00 mydir
 ```
-권한 제어 실습 화면:
+권한 제어 실습 화면:  
+<img width="628" height="337" alt="스크린샷 2026-11-09 190024" src="https://github.com/user-attachments/assets/539e2eb4-260d-4d5c-a615-2b89496843c6" />
 
 ------------
 
@@ -88,7 +89,8 @@ mybox
 PS C:\WINDOWS\system32> docker exec -it mybox bash
 root@46f968e80102:/#
 ```
-컨테이너 생명주기 관리 화면:
+컨테이너 생명주기 관리 화면:  
+<img width="1117" height="580" alt="스크린샷 2026-11-09 190256" src="https://github.com/user-attachments/assets/b8413035-3715-4879-941f-a92afcd468a3" />
 
 ------------
 
@@ -113,7 +115,8 @@ PS C:\dockerfile with codyssey> docker ps
 CONTAINER ID   IMAGE     COMMAND         CREATED         STATUS          PORTS                                      NAMES
 eb75cf470aeb   my-web    "/entrypoint"   12 seconds ago  Up 12 seconds   0.0.0.0:7566->80/tcp, [::]:7566->80/tcp    my-web
 ```
-웹 서버 접속 결과 (포트 7566):
+웹 서버 접속 결과 (포트 7566):  
+<img width="735" height="584" alt="스크린샷 2026-11-09 202949" src="https://github.com/user-attachments/assets/4dda76a1-38f1-49ba-90d6-d02114242c00" />
 
 ------------
 
@@ -127,8 +130,8 @@ PS C:\dockerfile with codyssey> cd "C:\dockerfile with codyssey"
 PS C:\dockerfile with codyssey> docker run -d -p 7566:80 --name my-web-live -v ${PWD}:/usr/share/nginx/html nginx
 768b9d528a150bb0eb5f0f99147d9ffe17873d3ed241d868be4965165e341de8
 ```
-실시간 수정 반영 결과:
-[cite: 8]
+실시간 수정 반영 결과:  
+<img width="733" height="382" alt="스크린샷 2026-11-09 205823" src="https://github.com/user-attachments/assets/217c9bc6-0130-4a93-9460-64d97b8a4287" />
 
 ------------
 
@@ -157,7 +160,8 @@ PS C:\WINDOWS\system32> docker volume ls
 DRIVER    VOLUME NAME
 local     mydata
 ```
-볼륨 영속성 검증 실행 화면:
+볼륨 영속성 검증 실행 화면:  
+<img width="904" height="427" alt="스크린샷 2026-11-09 211515" src="https://github.com/user-attachments/assets/1617cf29-99ed-440f-8bc8-cf83ce6c06ad" />
 
 ------------
 
@@ -191,8 +195,12 @@ user.name=CroaRio
 user.email=krw7566@gmail.com
 init.defaultbranch=main
 ```
-Git 설정값 확인:
-GitHub 계정 연동 화면 (VS Code):
+Git 설정값 확인:  
+<img width="286" height="57" alt="스크린샷 2026-11-09 194214" src="https://github.com/user-attachments/assets/a0b65fa3-7abf-42be-80d3-630a512427d1" />  
+
+GitHub 계정 연동 화면 (VS Code):  
+<img width="865" height="900" alt="스크린샷 2026-11-09 193707" src="https://github.com/user-attachments/assets/4d00dfa5-de90-40b8-809e-c3774cc9fed5" />  
+
 
 ***
 
