@@ -76,7 +76,9 @@ mybox
 PS C:\WINDOWS\system32> docker exec -it mybox bash
 root@46f968e80102:/# 
 컨테이너 생명주기 관리 화면:
-   4) Dockerfile 커스텀 이미지 제작 및 포트 매핑 실습PowerShell# 1. Dockerfile 빌드 (초기 빈 파일 에러 해결 후 정상 빌드 완료)
+   4) Dockerfile 커스텀 이미지 제작 및 포트 매핑 실습PowerShell
+
+# 1. Dockerfile 빌드 (초기 빈 파일 에러 해결 후 정상 빌드 완료)
 PS C:\dockerfile with codyssey> docker build -t my-web .
 [+] Building 14.2s (7/7) FINISHED                 docker:desktop-linux
  => [internal] load build definition from Dockerfile                0.0s
@@ -95,7 +97,9 @@ PS C:\dockerfile with codyssey> docker ps
 CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                      NAMES
 eb75cf470aeb   my-web    "/docker-entrypoint.…"   12 seconds ago   Up 12 seconds   0.0.0.0:7566->80/tcp, [::]:7566->80/tcp    my-web
 웹 서버 접속 결과 (포트 7566):
-   5) Docker 바인드 마운트 및 실시간 반영 검증PowerShell# 기존 컨테이너 정리 후 바인드 마운트 적용 (-v 옵션 사용)
+   5) Docker 바인드 마운트 및 실시간 반영 검증
+
+PowerShell# 기존 컨테이너 정리 후 바인드 마운트 적용 (-v 옵션 사용)
 PS C:\dockerfile with codyssey> docker rm -f my-web
 my-web
 
