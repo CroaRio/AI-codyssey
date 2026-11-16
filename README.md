@@ -50,9 +50,14 @@ Unable to find image 'hello-world:latest' latest: Pulling from library/hello-wor
 Hello from Docker!
 This message shows that your installation appears to be working correctly.
 ```
-
 ------------
-### 2) Docker 이미지 목록 확인
+  
+### 2) 이미지(Image)와 컨테이너(Container)의 차이
+* **이미지 (Image):** 애플리케이션을 실행하는 데 필요한 코드, 라이브러리, 환경 설정 등이 포함되어 있는 **읽기 전용(Read-only) 템플릿**이다. (건축 설계도에 비유할 수 있다.)  
+* **컨테이너 (Container):** 이미지를 실행하여 격리된 공간에서 프로세스가 동작하도록 만든 **실행 인스턴스**이다. 이미지 위에 읽기-쓰기 레이어가 추가되는 구조로, 컨테이너 내부를 수정해도 원본 이미지는 변하지 않는다.
+  
+------------
+### 3) Docker 이미지 목록 확인
 ```PowerShell
 PS C:\dockerfile with codyssey> docker images
 REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
@@ -63,8 +68,8 @@ hello-world  latest    ee637d7c6773   4 months ago    9.14kB
 ```
 ------------
 
-### 3) 컨테이너 실행 및 파일/권한 제어 실습
-rwx란?
+### 4) 컨테이너 실행 및 파일/권한 제어 실습
+**rwx란?**
 Linux나 Unix 시스템에서 파일이나 디렉터리(폴더)에 대해 누가 무엇을 할 수 있는지 결정하는 접근 권한을 나타내는 기호이다.
 ```
 r : 읽기 : 4 : Read
@@ -123,7 +128,11 @@ root@46f968e80102:/#
 
 ------------
 
-### 5) Dockerfile 커스텀 이미지 제작 및 포트 매핑 실습
+### 5) Dockerfile 커스텀 이미지 제작 및 포트 매핑 실습 
+**네트워크 네임스페이스:** 호스트 운영체제(Windows/Linux)의 네트워크와 완전히 격리되어 컨테이너가 고유한 가상 IP와 네트워크 환경을 갖추도록 만드는 리눅스 커널 기술이다.  
+  
+**포트포워딩 (`-p host:container`):** 격리된 컨테이너 내부의 포트(예: Nginx의 80번 포트)로 외부 트래픽이 직접 닿을 수 없으므로, 호스트 컴퓨터의 특정 포트(예: 7566)로 들어오는 요청을 컨테이너 내부 80번 포트로 연결해 주는 네트워크 매핑 방식이다.
+
 ```powershell
 # 1. 프로젝트 디렉토리 구조 및 파일 역할
 본 프로젝트에서 구성한 작업 디렉토리의 구조와 각 파일의 목적은 다음과 같다.
@@ -196,6 +205,14 @@ PS C:\WINDOWS\system32> docker volume ls
 DRIVER    VOLUME NAME
 local     mydata
 ```
+
+**[데이터 손실 대비 백업/복원 권장 대안]**  
+  Docker 볼륨(`mydata`) 내부의 중요 데이터를 호스트 PC로 안전하게 백업하려면 아래와 같은 명령어를 활용할 수 있다.
+```powershell
+  # 볼륨 데이터를 tar 압축 파일로 호스트 현재 경로에 백업
+  docker run --rm -v mydata:/data -v ${PWD}:/backup ubuntu tar cvf /backup/volume_backup.tar /data
+```
+
 볼륨 영속성 검증 실행 화면:  
 <img width="904" height="427" alt="스크린샷 2026-11-09 211515" src="https://github.com/user-attachments/assets/1617cf29-99ed-440f-8bc8-cf83ce6c06ad" />
 
@@ -231,6 +248,22 @@ user.name=CroaRio
 user.email=krw7566@gmail.com
 init.defaultbranch=main
 ```
+
+```Bash
+# 원격 저장소 연결 및 확인
+$ git remote add origin https://github.com/CroaRio/your-repo-name.git
+$ git remote -v
+origin  https://github.com/CroaRio/your-repo-name.git (fetch)
+origin  https://github.com/CroaRio/your-repo-name.git (push)
+
+# 원격 저장소로 코드 푸시(Push) 기록
+$ git push -u origin main
+Enumerating objects: 5, done.
+Writing objects: 100%, done.
+To https://github.com/CroaRio/your-repo-name.git
+ * [new branch]      main -> main
+```
+
 Git 설정값 확인:  
 <img width="286" height="57" alt="스크린샷 2026-11-09 194214" src="https://github.com/user-attachments/assets/a0b65fa3-7abf-42be-80d3-630a512427d1" />  
 
