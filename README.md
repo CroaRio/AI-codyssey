@@ -39,6 +39,7 @@
 ```powershell
 PS C:\WINDOWS\system32> docker info
 # 클라이언트 버전: 29.9.2, 서버 버전: 29.9.2, 운영체제: Docker Desktop (WSL2 기반) 정상 동작 확인 완료
+
 2) 컨테이너 실행 및 파일/권한 제어 실습PowerShell# Ubuntu 컨테이너 생성 및 접속
 PS C:\WINDOWS\system32> docker run -it --name mybox ubuntu
 
