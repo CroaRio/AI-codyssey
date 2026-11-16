@@ -63,7 +63,15 @@ hello-world  latest    ee637d7c6773   4 months ago    9.14kB
 ```
 ------------
 
-### 3) 컨테이너 실행 및 파일/권한 제어 실습PowerShell
+### 3) 컨테이너 실행 및 파일/권한 제어 실습
+rwx란?
+Linux나 Unix 시스템에서 파일이나 디렉터리(폴더)에 대해 누가 무엇을 할 수 있는지 결정하는 접근 권한을 나타내는 기호이다.
+```
+r : 읽기 : 4 : Read
+w : 쓰기 : 2 : Write
+x : 실행 : 1 : Execute
+```
+
 ```powershell
 # Ubuntu 컨테이너 생성 및 접속
 PS C:\WINDOWS\system32> docker run -it --name mybox ubuntu
@@ -92,6 +100,8 @@ drwx------ 2 root root  4096 Nov  9 10:00 mydir
 ```
 권한 제어 실습 화면:  
 <img width="628" height="337" alt="스크린샷 2026-11-09 190024" src="https://github.com/user-attachments/assets/539e2eb4-260d-4d5c-a615-2b89496843c6" />
+<img width="1117" height="580" alt="스크린샷 2026-11-09 190256" src="https://github.com/user-attachments/assets/3d2a52d5-0615-42cf-a6cd-404c94a68da4" />
+
 
 ------------
 
@@ -161,7 +171,7 @@ PS C:\dockerfile with codyssey> docker run -d -p 7566:80 --name my-web-live -v $
 
 ------------
 
-### 7) Docker 볼륨 영속성 검증PowerShell
+### 7) Docker 볼륨 영속성 검증
 ```powershell
 # 1. Docker 볼륨 생성
 PS C:\WINDOWS\system32> docker volume create mydata
