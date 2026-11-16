@@ -42,10 +42,28 @@ PS C:\WINDOWS\system32> docker info
 # 클라이언트 버전: 29.9.2, 서버 버전: 29.9.2, 
 # 운영체제: Docker Desktop (WSL2 기반) 정상 동작 확인 완료
 ```
+  
+```powershell
+PS C:\WINDOWS\system32> docker run hello-world
+Unable to find image 'hello-world:latest' latest: Pulling from library/hello-world
+...
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+```
 
 ------------
+### 2) Docker 이미지 목록 확인
+```PowerShell
+PS C:\dockerfile with codyssey> docker images
+REPOSITORY   TAG       IMAGE ID       CREATED         SIZE
+my-web       latest    893e0e41cb76   2 hours ago     192MB
+nginx        latest    165ddde8751e   2 weeks ago     192MB
+ubuntu       latest    7223b8bd4940   3 weeks ago     77.8MB
+hello-world  latest    ee637d7c6773   4 months ago    9.14kB
+```
+------------
 
-### 2) 컨테이너 실행 및 파일/권한 제어 실습PowerShell
+### 3) 컨테이너 실행 및 파일/권한 제어 실습PowerShell
 ```powershell
 # Ubuntu 컨테이너 생성 및 접속
 PS C:\WINDOWS\system32> docker run -it --name mybox ubuntu
@@ -77,7 +95,7 @@ drwx------ 2 root root  4096 Nov  9 10:00 mydir
 
 ------------
 
-### 3) 컨테이너 재시작 및 관리 로그
+### 4) 컨테이너 재시작 및 관리 로그
 ```powershell
 # 컨테이너 종료 후 상태 확인
 PS C:\WINDOWS\system32> docker ps -a
@@ -95,7 +113,7 @@ root@46f968e80102:/#
 
 ------------
 
-### 4) Dockerfile 커스텀 이미지 제작 및 포트 매핑 실습
+### 5) Dockerfile 커스텀 이미지 제작 및 포트 매핑 실습
 ```powershell
 # 1. 프로젝트 디렉토리 구조 및 파일 역할
 본 프로젝트에서 구성한 작업 디렉토리의 구조와 각 파일의 목적은 다음과 같다.
@@ -128,7 +146,7 @@ eb75cf470aeb   my-web    "/entrypoint"   12 seconds ago  Up 12 seconds   0.0.0.0
 
 ------------
 
-### 5) Docker 바인드 마운트 및 실시간 반영 검증
+### 6) Docker 바인드 마운트 및 실시간 반영 검증
 ```powershell
 # 기존 컨테이너 정리 후 바인드 마운트 적용 (-v 옵션 사용)
 PS C:\dockerfile with codyssey> docker rm -f my-web
@@ -143,7 +161,7 @@ PS C:\dockerfile with codyssey> docker run -d -p 7566:80 --name my-web-live -v $
 
 ------------
 
-### 6) Docker 볼륨 영속성 검증PowerShell
+### 7) Docker 볼륨 영속성 검증PowerShell
 ```powershell
 # 1. Docker 볼륨 생성
 PS C:\WINDOWS\system32> docker volume create mydata
@@ -173,7 +191,7 @@ local     mydata
 
 ------------
 
-### 7) Git 설정 및 GitHub 연동
+### 8) Git 설정 및 GitHub 연동
 ```bash
 김려원@DESKTOP-6CGCS3L UCRT64 ~
 $ git config --global user.name "CroaRio"
