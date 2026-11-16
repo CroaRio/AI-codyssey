@@ -1,4 +1,5 @@
-🚀 [기술 문서] 개발 워크스테이션 구축 및 Docker/Git 검증 결과 보고서
+🚀 개발 워크스테이션 구축 및 Docker/Git 검증 결과 보고서
+=======================================================================
 
 ## 1. 프로젝트 개요
 * **목표:** 로컬 개발 환경의 재현성을 확보하기 위해 터미널(CLI), Docker(컨테이너), Git/GitHub을 활용한 개발 워크스테이션 환경을 직접 구축하고 검증한다.
@@ -40,7 +41,13 @@
 PS C:\WINDOWS\system32> docker info
 # 클라이언트 버전: 29.9.2, 서버 버전: 29.9.2, 
 # 운영체제: Docker Desktop (WSL2 기반) 정상 동작 확인 완료
-2) 컨테이너 실행 및 파일/권한 제어 실습PowerShell# Ubuntu 컨테이너 생성 및 접속
+```
+
+------------
+
+### 2) 컨테이너 실행 및 파일/권한 제어 실습PowerShell
+```powershell
+# Ubuntu 컨테이너 생성 및 접속
 PS C:\WINDOWS\system32> docker run -it --name mybox ubuntu
 
 # 디렉토리 생성 및 파일 작성 실습
@@ -64,8 +71,13 @@ root@46f968e80102:/temp# ls -l
 total 4
 -rw------- 1 root root     0 Nov  9 09:59 file.txt
 drwx------ 2 root root  4096 Nov  9 10:00 mydir
+```
 권한 제어 실습 화면:
-   3) 컨테이너 재시작 및 관리 로그PowerShell# 컨테이너 종료 후 상태 확인
+
+------------
+
+### 3) 컨테이너 재시작 및 관리 로그PowerShell# 컨테이너 종료 후 상태 확인
+```powershell
 PS C:\WINDOWS\system32> docker ps -a
 CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                     PORTS     NAMES
 46f968e80102   ubuntu    "/bin/bash"   2 minutes ago   Exited (0) 22 seconds ago            mybox
@@ -74,9 +86,15 @@ CONTAINER ID   IMAGE     COMMAND       CREATED         STATUS                   
 PS C:\WINDOWS\system32> docker start mybox
 mybox
 PS C:\WINDOWS\system32> docker exec -it mybox bash
-root@46f968e80102:/# 
+root@46f968e80102:/#
+```
 컨테이너 생명주기 관리 화면:
-   4) Dockerfile 커스텀 이미지 제작 및 포트 매핑 실습PowerShell# 1. Dockerfile 빌드 (초기 빈 파일 에러 해결 후 정상 빌드 완료)
+
+------------
+
+### 4) Dockerfile 커스텀 이미지 제작 및 포트 매핑 실습
+```powershell
+# 1. Dockerfile 빌드 (초기 빈 파일 에러 해결 후 정상 빌드 완료)
 PS C:\dockerfile with codyssey> docker build -t my-web .
 [+] Building 14.2s (7/7) FINISHED                 docker:desktop-linux
  => [internal] load build definition from Dockerfile                0.0s
@@ -94,16 +112,29 @@ eb75cf470aebcb2c105c5d85f16fe59b6f5d9361c6ddadd8827bee366e4c0a2a
 PS C:\dockerfile with codyssey> docker ps
 CONTAINER ID   IMAGE     COMMAND         CREATED         STATUS          PORTS                                      NAMES
 eb75cf470aeb   my-web    "/entrypoint"   12 seconds ago  Up 12 seconds   0.0.0.0:7566->80/tcp, [::]:7566->80/tcp    my-web
+```
 웹 서버 접속 결과 (포트 7566):
-   5) Docker 바인드 마운트 및 실시간 반영 검증PowerShell# 기존 컨테이너 정리 후 바인드 마운트 적용 (-v 옵션 사용)
+
+------------
+
+### 5) Docker 바인드 마운트 및 실시간 반영 검증
+```powershell
+# 기존 컨테이너 정리 후 바인드 마운트 적용 (-v 옵션 사용)
 PS C:\dockerfile with codyssey> docker rm -f my-web
 my-web
 
 PS C:\dockerfile with codyssey> cd "C:\dockerfile with codyssey"
 PS C:\dockerfile with codyssey> docker run -d -p 7566:80 --name my-web-live -v ${PWD}:/usr/share/nginx/html nginx
 768b9d528a150bb0eb5f0f99147d9ffe17873d3ed241d868be4965165e341de8
+```
 실시간 수정 반영 결과:
-[cite: 8]6) Docker 볼륨 영속성 검증PowerShell# 1. Docker 볼륨 생성
+[cite: 8]
+
+------------
+
+### 6) Docker 볼륨 영속성 검증PowerShell
+```powershell
+# 1. Docker 볼륨 생성
 PS C:\WINDOWS\system32> docker volume create mydata
 mydata
 
@@ -125,8 +156,14 @@ hello volume
 PS C:\WINDOWS\system32> docker volume ls
 DRIVER    VOLUME NAME
 local     mydata
+```
 볼륨 영속성 검증 실행 화면:
-   7) Git 설정 및 GitHub 연동Bash김려원@DESKTOP-6CGCS3L UCRT64 ~
+
+------------
+
+### 7) Git 설정 및 GitHub 연동
+```bash
+김려원@DESKTOP-6CGCS3L UCRT64 ~
 $ git config --global user.name "CroaRio"
 
 김려원@DESKTOP-6CGCS3L UCRT64 ~
@@ -153,10 +190,48 @@ init.defaultbranch=master
 user.name=CroaRio
 user.email=krw7566@gmail.com
 init.defaultbranch=main
+```
 Git 설정값 확인:
-   GitHub 계정 연동 화면 (VS Code):
-   5. 트러블 슈팅 (Troubleshooting)[트러블 슈팅 1] Dockerfile 빌드 시 "cannot be empty" 에러 발생1. 문제 상황 (Problem)docker build -t my-web . 명령어를 실행했을 때 아래와 같은 에러 발생:PlaintextERROR: failed to build: failed to solve: the Dockerfile cannot be empty
-2. 원인 가설 (Hypothesis)파일 이름은 Dockerfile로 정확히 생성되었으나, 텍스트 편집기에서 내용을 작성한 후 실제 저장이 누락되었거나 공백 상태여서 Docker 빌더가 내용을 읽지 못했을 것으로 추정함.3. 확인 및 검증 (Verification)터미널에서 type Dockerfile 명령어를 입력해 파일 내부 텍스트 출력을 확인한 결과, 내용이 비어 있음을 확인하여 '저장 누락'이 원인임을 확정함.4. 해결 방법 (Solution)VS Code에서 Dockerfile을 다시 열고 필요한 명령어를 작성한 뒤 단축키(Ctrl + S)로 확실하게 저장함. 이후 빌드를 재실행하여 해결함.[트러블 슈팅 2] 포트 충돌 및 컨테이너 이름 중복 에러1. 문제 상황 (Problem)동일한 포트(7566)나 동일한 이름을 가진 컨테이너를 중복 생성하려고 할 때 아래와 같은 충돌 에러 발생:PlaintextBind for 0.0.0.0:7566 failed: port is already allocated
+GitHub 계정 연동 화면 (VS Code):
+
+***
+
+## 5. 트러블 슈팅 (Troubleshooting)
+**[트러블 슈팅 1] Dockerfile 빌드 시 "cannot be empty" 에러 발생**
+
+****1. 문제 상황 (Problem)****  
+docker build -t my-web . 명령어를 실행했을 때 아래와 같은 에러 발생:
+```powershell
+ERROR: failed to build: failed to solve: the Dockerfile cannot be empty
+```
+****2. 원인 가설 (Hypothesis)****  
+파일 이름은 Dockerfile로 정확히 생성되었으나, 텍스트 편집기에서 내용을 작성한 후 실제 저장이 누락되었거나 공백 상태여서 Docker 빌더가 내용을 읽지 못했을 것으로 추정함.  
+
+****3. 확인 및 검증 (Verification)****  
+터미널에서 type Dockerfile 명령어를 입력해 파일 내부 텍스트 출력을 확인한 결과, 내용이 비어 있음을 확인하여 '저장 누락'이 원인임을 확정함.  
+
+****4. 해결 방법 (Solution)****  
+VS Code에서 Dockerfile을 다시 열고 필요한 명령어를 작성한 뒤 단축키(Ctrl + S)로 확실하게 저장함. 이후 빌드를 재실행하여 해결함.  
+
+------------
+**[트러블 슈팅 2] 포트 충돌 및 컨테이너 이름 중복 에러**  
+
+****1. 문제 상황 (Problem)****
+동일한 포트(7566)나 동일한 이름을 가진 컨테이너를 중복 생성하려고 할 때 아래와 같은 충돌 에러 발생:
+```Plaintext
+Bind for 0.0.0.0:7566 failed: port is already allocated
 Conflict. The container name "/my-web" is already in use...
-2. 원인 가설 (Hypothesis)이미 실행 중이거나 종료된 상태로 남아 있는 이전 컨테이너가 지정한 포트와 이름을 선점하고 있기 때문에 발생함.3. 확인 및 검증 (Verification)docker ps -a 명령어로 기존 컨테이너 목록과 포트 사용 상태를 직접 조회하여 중복 점유를 확인 함.4. 해결 방법 (Solution)기존 컨테이너를 강제 삭제하는 명령어를 실행한 후 새로운 컨테이너를 구동함.PowerShelldocker rm -f my-web
+```
+****3. 원인 가설 (Hypothesis)****  
+이미 실행 중이거나 종료된 상태로 남아 있는 이전 컨테이너가 지정한 포트와 이름을 선점하고 있기 때문에 발생함.  
+
+****4. 확인 및 검증 (Verification)****  
+docker ps -a 명령어로 기존 컨테이너 목록과 포트 사용 상태를 직접 조회하여 중복 점유를 확인 함.  
+
+****5. 해결 방법 (Solution)****  
+기존 컨테이너를 강제 삭제하는 명령어를 실행한 후 새로운 컨테이너를 구동함.  
+
+```PowerShell
+docker rm -f my-web
 docker rm -f my-web-live
+```
