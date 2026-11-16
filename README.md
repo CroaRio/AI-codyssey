@@ -154,6 +154,9 @@ user.email=krw7566@gmail.com
 init.defaultbranch=main
 Git 설정값 확인:
    GitHub 계정 연동 화면 (VS Code):
+
+---
+
    5. 트러블 슈팅 (Troubleshooting)[트러블 슈팅 1] Dockerfile 빌드 시 "cannot be empty" 에러 발생1. 문제 상황 (Problem)docker build -t my-web . 명령어를 실행했을 때, 아래와 같은 에러가 발생하며 빌드에 실패함.에러 메시지:PlaintextERROR: failed to build: failed to solve: the Dockerfile cannot be empty
 2. 원인 가설 (Hypothesis)파일 이름은 Dockerfile로 정확히 생성되었으나, 텍스트 편집기(VS Code 등)에서 내용을 작성한 후 실제 저장(Save)이 누락되었거나, 파일 내부가 공백 상태여서 Docker 빌더가 내용을 읽지 못했을 것으로 추정함.3. 확인 및 검증 (Verification)PowerShell 터미널에서 type Dockerfile 명령어를 입력해 파일 내부의 텍스트가 실제로 출력되는지 확인해 보았음.그 결과 파일 내용이 비어 있거나 터미널에 읽히지 않는 것을 확인하여, 파일 저장 누락이 원인임을 최종 확정함.4. 해결 방법 (Solution)VS Code에서 Dockerfile을 다시 열고 필요한 명령어(FROM nginx, COPY index.html ...)를 작성한 뒤 단축키(Ctrl + S)로 확실하게 저장함.이후 터미널에서 빌드 명령어를 재실행하여 정상적으로 이미지가 빌드되는 것을 확인 완료함.[트러블 슈팅 2] 포트 충돌 및 컨테이너 이름 중복 에러1. 문제 상황 (Problem)동일한 포트(7566)나 동일한 이름(my-web, my-web-live)을 가진 컨테이너를 중복 생성하려고 할 때 아래와 같은 충돌 에러가 발생함.에러 메시지:PlaintextBind for 0.0.0.0:7566 failed: port is already allocated
 Conflict. The container name "/my-web" is already in use...
